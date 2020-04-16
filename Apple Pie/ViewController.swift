@@ -9,12 +9,48 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    // MARK: - ... IBOutlet
+    @IBOutlet weak var treeImageView: UIImageView!
+    @IBOutlet var letterButtons: [UIButton]!
+    @IBOutlet weak var correctLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    // MARK: - ... Properties
+    var currentGame: Game!
+    
+    let incorrectMovesAllowed = 7
+    
+    var totalWins = 0
+    var totalLosses = 0
+    
+    var listOfWords = ["арбуз",
+                       "гном",
+                       "болт"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        newRound()
     }
-
-
+    
+    func newRound() {
+        let newWord = listOfWords.removeFirst()
+        currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed)
+    }
+    
+    func updateUI() {
+        let imageName = "Tree \(currentGame.incorrectMovesRemaining)"
+        let image = UIImage(named: imageName)
+         
+        scoreLabel.text = "Выигрыши: \(totalWins), проигрыши: \(totalLosses)"
+        treeImageView.image = image
+    }
+    
+    
+    // MARK: - ... IBAction
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        sender.isEnabled = false
+    }
+    
 }
 
