@@ -40,12 +40,19 @@ class ViewController: UIViewController {
     }
     
     func updateUI() {
+        var letters = [String]()
+        for letter in currentGame.formattedWord {
+            letters.append(String(letter))
+        }
+        letters[0] = letters[0].capitalized
+        let wordWithSpacing = letters.joined(separator: " ")
+        
         //обновление картинки
         let imageName = "Tree \(currentGame.incorrectMovesRemaining)"
         let image = UIImage(named: imageName)
         
         //обновление угадываемое слово
-        correctLabel.text = currentGame.formattedWord
+        correctLabel.text = wordWithSpacing
         
          //обновление счета
         scoreLabel.text = "Выигрыши: \(totalWins), проигрыши: \(totalLosses)"
