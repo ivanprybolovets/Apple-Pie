@@ -40,9 +40,14 @@ class ViewController: UIViewController {
     }
     
     func updateUI() {
+        //обновление картинки
         let imageName = "Tree \(currentGame.incorrectMovesRemaining)"
         let image = UIImage(named: imageName)
-         
+        
+        //обновление угадываемое слово
+        correctLabel.text = currentGame.formattedWord
+        
+         //обновление счета
         scoreLabel.text = "Выигрыши: \(totalWins), проигрыши: \(totalLosses)"
         treeImageView.image = image
     }

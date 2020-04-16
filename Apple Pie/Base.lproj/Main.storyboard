@@ -29,7 +29,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wWu-Eb-x7e">
                                                         <rect key="frame" x="0.0" y="0.0" width="59" height="40"/>
-                                                        <state key="normal" title="A"/>
+                                                        <state key="normal" title="А"/>
                                                         <connections>
                                                             <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Ca-t7-WBV"/>
                                                         </connections>
