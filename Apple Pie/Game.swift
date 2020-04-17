@@ -39,6 +39,7 @@ struct Game {
     }
     
     
+    
     //обработка нажатой буквы
     mutating func playerGuessed(letter: Character) {
         guessedLetters.append(letter)

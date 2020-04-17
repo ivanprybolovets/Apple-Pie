@@ -21,22 +21,44 @@ class ViewController: UIViewController {
     
     let incorrectMovesAllowed = 7
     
-    var totalWins = 0
-    var totalLosses = 0
+    var totalWins = 0 {
+        didSet {
+            newRound()
+        }
+    }
+    
+    var totalLosses = 0 {
+        didSet {
+            newRound()
+        }
+    }
     
     var listOfWords = ["арбуз",
                        "гном",
-                       "болт"]
+                        "болт"]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         newRound()
     }
     
+    
+    func enableLetterButtons(_ enable : Bool) {
+        for button in letterButtons {
+            button.isEnabled = enable
+        }
+    }
+    
     func newRound() {
-        let newWord = listOfWords.removeFirst()
-        currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed, guessedLetters: [])
-        updateUI()
+        if !listOfWords.isEmpty{
+            let newWord = listOfWords.removeFirst()
+            currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed, guessedLetters: [])
+            enableLetterButtons(true)
+            updateUI()
+        } else {
+            enableLetterButtons(false)
+        }
     }
     
     func updateUI() {
@@ -54,11 +76,23 @@ class ViewController: UIViewController {
         //обновление угадываемое слово
         correctLabel.text = wordWithSpacing
         
-         //обновление счета
+        //обновление счета
         scoreLabel.text = "Выигрыши: \(totalWins), проигрыши: \(totalLosses)"
         treeImageView.image = image
     }
     
+    //проверк если игра окончена
+    func updateGameState() {
+        //проиграл раунд
+        if currentGame.incorrectMovesRemaining == 0 {
+            totalLosses += 1
+            //выиграл раунд
+        } else if currentGame.word == currentGame.formattedWord {
+            totalWins += 1
+        } else {
+            updateUI()
+        }
+    }
     
     // MARK: - ... IBAction
     @IBAction func buttonTapped(_ sender: UIButton) {
@@ -67,7 +101,7 @@ class ViewController: UIViewController {
         let letterString = sender.title(for: .normal)!
         let letter = Character(letterString.lowercased())
         currentGame.playerGuessed(letter: letter)
-        updateUI()
+        updateGameState()
     }
     
 }
